@@ -261,28 +261,46 @@ function compileAndRun() {
     const language = document.getElementById('languageSelect').value;
 
     try {
+        // Clear previous outputs
+        outputElement.textContent = '';
+        convertedCodeElement.textContent = '';
+
+        // Process the code
         const tokens = lexer(input);
         const ast = parser(tokens);
 
-        const jsCode = generate(ast, 'js');
-
-        
+        // Generate code for the selected language
         const convertedCode = generate(ast, language);
-
-       
         convertedCodeElement.textContent = convertedCode;
-        let consoleOutput = '';
-        const originalConsoleLog = console.log;
-        console.log = function (message) {
-            consoleOutput += message + '\n';
-            originalConsoleLog.apply(console, arguments);
-        };
 
-        eval(jsCode); 
-        console.log = originalConsoleLog;
+        // For JavaScript execution
+        if (language === 'js') {
+            let consoleOutput = '';
+            const originalConsoleLog = console.log;
+            
+            // Capture console.log output
+            console.log = function(message) {
+                consoleOutput += (typeof message === 'object' ? JSON.stringify(message) : message) + '\n';
+                originalConsoleLog.apply(console, arguments);
+            };
 
-       
-        outputElement.textContent = consoleOutput.trim();
+            try {
+                // Execute the JavaScript code
+                const jsCode = generate(ast, 'js');
+                new Function(jsCode)();
+            } catch (execError) {
+                consoleOutput += 'Execution Error: ' + execError.message + '\n';
+            }
+
+            // Restore original console.log
+            console.log = originalConsoleLog;
+            
+            // Display output
+            outputElement.textContent = consoleOutput.trim() || 'No output';
+        } else {
+            // For other languages, just show that execution is not supported
+            outputElement.textContent = 'Code generated successfully. Use an appropriate compiler/interpreter to execute this code.';
+        }
     } catch (error) {
         outputElement.textContent = `Error: ${error.message}`;
         convertedCodeElement.textContent = '';
