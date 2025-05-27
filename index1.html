@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Language Compiler</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-overlay">
+        <div class="content">  <!-- Ensures content structure stays clean -->
+            <nav>
+                <h1>Custom Language Compiler</h1>
+                <select id="languageSelect">
+                    <option value="js">JavaScript</option>
+                    <option value="cpp">C++</option>
+                    <option value="java">Java</option>
+                    <option value="c">C</option>
+                    <option value="python">Python</option>
+                </select>
+            </nav>
+
+            <div class="container">
+                <textarea id="codeInput" placeholder="Enter your code here..."></textarea>
+                <button onclick="compileAndRun()">Run Code</button>
+
+                <div class="output-container">
+                    <div class="output-section">
+                        <h2>Converted Code:</h2>
+                        <pre id="convertedCode"></pre>
+                    </div>
+
+                    <div class="output-section">
+                        <h2>Output:</h2>
+                        <pre id="output"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

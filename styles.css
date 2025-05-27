@@ -1,0 +1,181 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #2C2C54;
+    line-height: 1.8;
+}
+
+.background-overlay {
+    position: relative;
+    min-height: 100vh;
+    background: url('https://freefrontend.com/assets/img/javascript-background-effects/hello-matrix.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.background-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);  /* Darker overlay for improved text clarity */
+    z-index: 0;
+}
+
+nav, .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Navbar Styles */
+nav {
+    background-color: rgba(106, 13, 173, 0.9); /* Slight transparency for improved blending */
+    color: #fff;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    border-bottom: 3px solid #00BFA6;
+}
+
+nav h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+nav select {
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: none;
+    background-color: #fff;
+    color: #6A0DAD;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+nav select:hover {
+    background-color: #E2D3F7;
+    color: #530985;
+    transform: scale(1.05);
+}
+
+/* Container Styles */
+.container {
+    padding: 50px;
+    max-width: 1100px;
+    margin: 60px auto;
+    background-color: rgba(255, 255, 255, 0.97); 
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+textarea {
+    width: 100%;
+    height: 220px;
+    padding: 18px;
+    border: 3px solid #00BFA6;
+    border-radius: 12px;
+    font-family: monospace;
+    font-size: 16px;
+    margin-bottom: 25px;
+    resize: vertical;
+    background-color: #E3FBF7;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #009F8C;
+    background-color: #D3F5F0;
+    transform: scale(1.02);
+}
+
+/* Button Styles */
+button {
+    padding: 16px 32px;
+    background-color: #6A0DAD;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #530985;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Output Container Styles */
+.output-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.output-section {
+    background-color: #faf5ff;
+    padding: 25px;
+    border: 3px solid #6A0DAD;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.output-section:hover {
+    transform: scale(1.03);
+    background-color: #f0eaff;
+}
+
+.output-section h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #6A0DAD;
+    border-bottom: 3px solid #6A0DAD;
+    padding-bottom: 6px;
+}
+
+/* Code Block Styling */
+pre {
+    background-color: #EAE2F7;
+    padding: 18px;
+    border: 3px solid #D1C4E9;
+    border-radius: 10px;
+    max-height: 320px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+pre::-webkit-scrollbar {
+    width: 8px;
+}
+
+pre::-webkit-scrollbar-thumb {
+    background-color: #6A0DAD;
+    border-radius: 6px;
+}
+
+pre::-webkit-scrollbar-track {
+    background-color: #EAE2F7;
+}
