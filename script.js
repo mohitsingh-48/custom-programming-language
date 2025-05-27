@@ -277,23 +277,45 @@ function compileAndRun() {
         if (language === 'js') {
             let consoleOutput = '';
             const originalConsoleLog = console.log;
+            const originalConsoleError = console.error;
             
-            // Capture console.log output
-            console.log = function(message) {
-                consoleOutput += (typeof message === 'object' ? JSON.stringify(message) : message) + '\n';
-                originalConsoleLog.apply(console, arguments);
+            // Create a sandbox environment for output capture
+            const sandbox = {
+                console: {
+                    log: function(...args) {
+                        const output = args.map(arg => 
+                            typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
+                        ).join(' ');
+                        consoleOutput += output + '\n';
+                        originalConsoleLog.apply(console, args);
+                    },
+                    error: function(...args) {
+                        const output = args.map(arg => 
+                            typeof arg === 'object' ? JSON.stringify(arg) : String(arg)
+                        ).join(' ');
+                        consoleOutput += 'Error: ' + output + '\n';
+                        originalConsoleError.apply(console, args);
+                    }
+                }
             };
 
             try {
-                // Execute the JavaScript code
+                // Execute the JavaScript code in a safer way
                 const jsCode = generate(ast, 'js');
-                new Function(jsCode)();
+                // Wrap the code to use our sandboxed console
+                const wrappedCode = `
+                    with (sandbox) {
+                        ${jsCode}
+                    }
+                `;
+                new Function('sandbox', wrappedCode)(sandbox);
             } catch (execError) {
                 consoleOutput += 'Execution Error: ' + execError.message + '\n';
             }
 
-            // Restore original console.log
+            // Restore original console methods
             console.log = originalConsoleLog;
+            console.error = originalConsoleError;
             
             // Display output
             outputElement.textContent = consoleOutput.trim() || 'No output';
