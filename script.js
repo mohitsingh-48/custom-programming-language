@@ -126,23 +126,25 @@ function parser(tokens) {
                     value: value
                 };
             }
-        }
-
-        // Print Statement (likho "Hello")
+        }        // Print Statement (likho "Hello" or likho x+y)
         if (token.type === 'keyword' && token.value === 'likho') {
-            const value = tokens.shift();
-            if (value.type === 'string') {
+            // Check if the next token is a string
+            if (tokens[0] && tokens[0].type === 'string') {
+                const value = tokens.shift();
                 return {
                     type: 'print',
                     isString: true,
                     value: value.value
                 };
+            } else {
+                // Parse the entire expression for non-string values
+                const value = parseExpression();
+                return {
+                    type: 'print',
+                    isString: false,
+                    value: value
+                };
             }
-            return {
-                type: 'print',
-                isString: false,
-                value: value.value
-            };
         }
 
         // If-Else Statement (agar x < y { ... } warna { ... })
