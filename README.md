@@ -54,15 +54,6 @@ agar x < y {
 }
 ```
 
-### 4. Loops
-```
-maano a = 0
-jabtak a < 5 {
-    likho a
-    a = a + 1
-}
-```
-
 ## How to Use
 
 1. Open `index1.html` in a web browser
